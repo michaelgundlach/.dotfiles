@@ -1,6 +1,6 @@
 # Dotfiles, Ho!
 
-Custom configuration files. Contains config for zsh and other files, but most of the attention has gone into the Vim config. The rest was copied from elsewhere and needs some attention.
+Custom configuration files.
 
 # Setup
 
@@ -19,4 +19,4 @@ Custom configuration files. Contains config for zsh and other files, but most of
 
 You can create these symlinks like, for example, `ln -s .dotfiles/.vimrc .vimrc`
 
-(TODO: create a bash (or ruby) script to set up each of these with prompt, backing up your current one)
+(TODO: create a bash script to set up each of these with prompt, backing up your current one)
