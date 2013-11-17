@@ -1,6 +1,11 @@
+if [ -f /etc/bash.bashrc ]; then
+  . /etc/bash.bashrc
+fi
+
+PATH=${PATH}:/cygdrive/c/Program\ Files/Vim/vim73
+
 source ~/.bash/aliases
-source ~/.bash/completions
-source ~/.bash/paths
+source ~/.bash/completion_scripts/git_completion
 source ~/.bash/config
 
 if [ -f ~/.bashrc ]; then
