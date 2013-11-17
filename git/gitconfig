@@ -1,0 +1,16 @@
+[user]
+  name = Michael Gundlach
+  ; set user.email per-repo to distinguish work and play
+  ; email = gundlach@...
+[format]
+  ; pretty = %h [%an] (%cr) %s
+  ; see https://www.kernel.org/pub/software/scm/git/docs/git-log.html
+  pretty = %C(yellow)%h %m %an %m %Creset %s %C(red)(%cr)%Creset
+[alias]
+  graphlog = log --graph --decorate --pretty=oneline --abbrev-commit
+[color]
+  ui = true
+[push]
+  ; 'git push' pushes current branch to its upstream, even if names
+  ; don't match.
+  default = upstream
