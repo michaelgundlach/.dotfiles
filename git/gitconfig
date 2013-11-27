@@ -14,3 +14,5 @@
   ; 'git push' pushes current branch to its upstream, even if names
   ; don't match.
   default = upstream
+[merge]
+	conflictstyle = diff3
