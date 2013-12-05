@@ -20,3 +20,6 @@ Custom configuration files.
 You can create these symlinks like, for example, `ln -s .dotfiles/.vimrc .vimrc`
 
 (TODO: create a bash script to set up each of these with prompt, backing up your current one)
+
+TODO: get my correct .bashrc into .bash/bashrc
+TODO: make .localrc work correctly (needs to be sourced by .bashrc not .profile)
