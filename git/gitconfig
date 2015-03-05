@@ -7,7 +7,7 @@
   ; see https://www.kernel.org/pub/software/scm/git/docs/git-log.html
   pretty = %C(yellow)%h %m %an %m %Creset %s %C(red)(%cr)%Creset
 [alias]
-  graphlog = log --graph --decorate --pretty=oneline --abbrev-commit
+  graphlog = log --graph --decorate --pretty='format:%C(yellow) %h%C(blue)%d%Creset %s%C(yellow) %m %an %m%C(red) (%cr)%Creset'
 [color]
   ui = true
 [push]
