@@ -1,7 +1,6 @@
 [user]
   name = Michael Gundlach
-  ; set user.email per-repo to distinguish work and play
-  ; email = gundlach@...
+  email = gundlach@gmail.com
 [format]
   ; pretty = %h [%an] (%cr) %s
   ; see https://www.kernel.org/pub/software/scm/git/docs/git-log.html
