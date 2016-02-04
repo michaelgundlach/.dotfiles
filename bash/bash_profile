@@ -6,7 +6,7 @@ fi
 source ~/.bash/aliases
 source ~/.bash/completion_scripts/git_completion
 
-PATH=${PATH}:/cygdrive/c/Program\ Files/Vim/vim73
+PATH=${PATH}:/cygdrive/c/Program\ Files/Vim/vim73:~/work/omrs/apache-maven-3.3.9/bin
 
 export EDITOR="vim"
 # Make less show 2 lines of context each time you page down
