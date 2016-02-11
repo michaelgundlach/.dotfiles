@@ -4,6 +4,7 @@ alias ls='ls -hF --color=tty'                 # classify files in colour
 alias h=history
 alias vi=vim
 alias rm='rm -i'
+alias :w='echo "You'"'"'re not in vi, silly."'
 
 function svndiff()
 {
