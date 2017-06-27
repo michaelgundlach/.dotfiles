@@ -5,9 +5,4 @@ alias h=history
 alias vi=vim
 alias rm='rm -i'
 alias :w='echo "You'"'"'re not in vi, silly."'
-
-function svndiff()
-{
-  svn diff "$@" | colordiff | less -R && svn diff "$@"
-}
-
+alias cs='cd ~/code/cavesim_ng'
