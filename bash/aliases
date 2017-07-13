@@ -12,3 +12,16 @@ alias mix='cmd /c mix'
 alias kp='taskkill /F /pid $(ps -W | grep "erl.exe" | tr -s " " | cut -d " " -f 2)'
 # ... so we'll want to start a term and type 'kpe' to quickly kill it.
 alias kpe="kp && exit"
+
+# Git aliases
+alias g="git"
+alias gs="g s"
+alias gd="g d"
+alias gp="g p"
+alias gb="g b"
+alias gc="g c"
+alias gcam="g cam"
+alias gco="g co"
+alias ga="g a"
+alias gl="g l"
+alias ggl="g gl"

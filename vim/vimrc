@@ -177,11 +177,18 @@ endif
 " ************ TaskList ****************
 " Leader t opens TaskList. Mnemonic: t for "TODO"
 " '<CR>' jumps to highlighted TODO; 'q' quits
-map <unique> <silent> <Leader>t <Plug>TaskList
+nnoremap <silent> <Leader>t <Plug>TaskList
 
 " ************ NERDTree ****************
 " Leader f opens NERDTree. Mnemonic: f for "Files"
-map <unique> <silent> <Leader>f :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>f :NERDTreeToggle<CR>
+" Leader v opens NERDTree to current file. Mnemonic: v for "Viles"
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+" Quit vim if NERDTree is only open window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Always start NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ************ CtrlP (File Finder) ****************
 " - Pressing <control + p> starts it.
@@ -194,8 +201,6 @@ map <unique> <silent> <Leader>f :NERDTreeToggle<CR>
 let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-t>'], 'AcceptSelection("t")': ['<cr>', '2-LeftMouse'], }
 " Open new files in a new tab
 let g:ctrlp_open_new_file = 't'
-" Open multiple files in new tabs and jump to the first one
-let g:ctrlp_open_multiple_files = 'tj'
 " Search files returned by one of these commands, depending on whether you
 " find .git in the directory or not.
 let g:ctrlp_user_command = {
