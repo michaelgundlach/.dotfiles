@@ -20,6 +20,16 @@ export HISTCONTROL="ignoredups"
 # Whenever displaying the prompt, write the previous line to disk
 export PROMPT_COMMAND="history -a"
 
+#so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon
+
+# Start tmux (and make new windows) in the directory we were in when
+# we started tmux, not in ~.  See http://bit.do/omgtmux .  Note that
+# if you then chdir in tmux and create a new window, it will be created
+# in the old dir that you started in, not in CWD.  To change that, we
+# change a setting in .tmux.conf.
+export CHERE_INVOKING=1
+
 # Put git branch into prompt
 # http://www.jonmaddox.com/2008/03/13/show-your-git-branch-name-in-your-prompt/
 function parse_git_branch {

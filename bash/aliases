@@ -5,7 +5,7 @@ alias h=history
 alias vi=vim
 alias rm='rm -i'
 alias :w='echo "You'"'"'re not in vi, silly."'
-alias cs='cd ~/code/cavesim_ng'
+alias cs='cd ~/code/cavesim/cavesim_ng'
 # mix has a bug making it unhappy in cygwin, but it starts fine in cmd.exe
 alias mix='cmd /c mix'
 # phoenix doesn't die, it freezes the console until you kill erlang!
@@ -18,6 +18,7 @@ alias g="git"
 alias gs="g s"
 alias gd="g d"
 alias gp="g p"
+alias gpoh="g poh"
 alias gb="g b"
 alias gc="g c"
 alias gcam="g cam"

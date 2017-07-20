@@ -187,20 +187,21 @@ nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 " Quit vim if NERDTree is only open window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Always start NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ************ CtrlP (File Finder) ****************
 " - Pressing <control + p> starts it.
 " - <ctrl + j/k> moves between matches. 
-" - Enter opens. <ctrl + t> opens in same tab (with config below).
+" - Enter opens in new vsplit. <ctrl + v> opens in same window (with config below).
 " - ctrl+f changes modes. MRU means 'Most Recently Used'. 
 " - <ctrl + r> toggles regexp/fuzzy search; regexp is also nice for exact filenames
 "
-" Open a single file in a new tab by default
-let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-t>'], 'AcceptSelection("t")': ['<cr>', '2-LeftMouse'], }
-" Open new files in a new tab
-let g:ctrlp_open_new_file = 't'
+" Edit these mappings to change what keys do in CtrlP.  See
+" https://github.com/ctrlpvim/ctrlp.vim/blob/master/doc/ctrlp.txt, search for
+" 'ctrlp_prompt_mappings'.
+" Swap so that <cr> opens in new split and <c-v> opens in current window.
+" let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-h>'], 'AcceptSelection("h")': ['<cr>', '2-LeftMouse'], }
 " Search files returned by one of these commands, depending on whether you
 " find .git in the directory or not.
 let g:ctrlp_user_command = {

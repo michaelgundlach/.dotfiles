@@ -18,6 +18,7 @@
   s = status
   d = diff
   p = push
+  poh = push origin head
   b = branch
   c = commit
   cam = commit -am
