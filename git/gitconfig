@@ -4,7 +4,8 @@
 [format]
   ; pretty = %h [%an] (%cr) %s
   ; see https://www.kernel.org/pub/software/scm/git/docs/git-log.html
-  pretty = %C(yellow)%h %m %an %m %Creset %s %C(red)(%cr)%Creset
+  ; pretty = %C(yellow)%h %m %an %m %Creset %s %C(red)(%cr)%Creset
+  pretty = full
 [alias]
 [color]
   ui = true
