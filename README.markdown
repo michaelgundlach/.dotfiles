@@ -12,7 +12,6 @@ Custom configuration files.
 .bash_profile@ -> .dotfiles/bash/bash_profile
 .gitignore@ -> .dotfiles/gitignore
 .gvimrc@ -> .dotfiles/.gvimrc
-.irbrc@ -> .dotfiles/irbrc
 .vim@ -> .dotfiles/.vim
 .vimrc@ -> .dotfiles/.vimrc
 ```
