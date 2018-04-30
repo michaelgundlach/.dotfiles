@@ -1,7 +1,7 @@
-" fakeclip - pseude clipboard register for non-GUI version of Vim
-" Version: @@VERSION@@
-" Copyright (C) 2008-2010 kana <http://whileimautomaton.net/>
-" License: So-called MIT/X license  {{{
+" fakeclip - Provide pseudo "clipboard" registers
+" Version: 0.3.0
+" Copyright (C) 2008-2014 Kana Natsuno <http://whileimautomaton.net/>
+" License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
 "     "Software"), to deal in the Software without restriction, including
@@ -25,21 +25,35 @@
 
 if has('macunix') || system('uname') =~? '^darwin'
   let s:PLATFORM = 'mac'
+elseif system('cat /proc/sys/kernel/osrelease') =~? 'Microsoft'
+  let s:PLATFORM = 'wsl'
 elseif has('win32unix')
   let s:PLATFORM = 'cygwin'
 elseif $DISPLAY != '' && executable('xclip')
   let s:PLATFORM = 'x'
+elseif executable('lemonade')
+  let s:PLATFORM = 'lemonade'
 else
   let s:PLATFORM = 'unknown'
 endif
 
 
-if executable('screen')
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'gnuscreen'
-elseif executable('tmux') && $TMUX != ''
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'tmux'
+if executable('tmux') && $TMUX != ''
+  let g:fakeclip_terminal_multiplexer_type = 'tmux'
+elseif executable('screen') && $STY != ''
+  let g:fakeclip_terminal_multiplexer_type = 'gnuscreen'
+elseif executable('tmux') && executable('screen')
+  if exists('g:fakeclip_terminal_multiplexer_type')
+    " Use user-defined value as is.
+  else
+    let g:fakeclip_terminal_multiplexer_type = 'tmux'
+  endif
+elseif executable('tmux') && !executable('screen')
+  let g:fakeclip_terminal_multiplexer_type = 'tmux'
+elseif !executable('tmux') && executable('screen')
+  let g:fakeclip_terminal_multiplexer_type = 'gnuscreen'
 else
-  let s:TERMINAL_MULTIPLEXER_TYPE = 'unknown'
+  let g:fakeclip_terminal_multiplexer_type = 'unknown'
 endif
 
 
@@ -73,7 +87,7 @@ endfunction
 
 function! fakeclip#delete(system_type, motion_type)  "{{{2
   call s:select_last_motion(a:motion_type)
-  execute 'normal!' (a:motion_type == 'V' ? 'D' : 'd')
+  execute 'normal!' (a:motion_type ==# 'V' ? 'D' : 'd')
   call s:write_{a:system_type}(@@)
 endfunction
 
@@ -114,7 +128,7 @@ function! fakeclip#yank(system_type, motion_type)  "{{{2
   let r0 = s:save_register('0')
 
   call s:select_last_motion(a:motion_type)
-  normal! y
+  execute 'normal!' (a:motion_type ==# 'V' ? 'Y' : 'y')
   call s:write_{a:system_type}(@@)
 
   call s:restore_register('0', r0)
@@ -152,6 +166,14 @@ function! s:read_clipboard_mac()
 endfunction
 
 
+function! s:read_clipboard_wsl()
+  let text = system('cd $(dirname $(which powershell.exe)) &&
+                    \ powershell.exe -Command Get-Clipboard')
+  let text = substitute(text, "\r", '', 'g')
+  return text
+endfunction
+
+
 function! s:read_clipboard_cygwin()
   let content = ''
   for line in readfile('/dev/clipboard', 'b')
@@ -166,6 +188,11 @@ function! s:read_clipboard_x()
 endfunction
 
 
+function! s:read_clipboard_lemonade()
+  return system('lemonade paste')
+endfunction
+
+
 function! s:read_clipboard_unknown()
   echoerr 'Getting the clipboard content is not supported on this platform:'
   \       s:PLATFORM
@@ -176,7 +203,7 @@ endfunction
 
 
 function! s:read_pastebuffer()  "{{{2
-  return s:read_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}()
+  return s:read_pastebuffer_{g:fakeclip_terminal_multiplexer_type}()
 endfunction
 
 
@@ -227,6 +254,13 @@ function! s:write_clipboard_mac(text)
 endfunction
 
 
+function! s:write_clipboard_wsl(text)
+  let text = substitute(a:text, "\n", "\r\n", 'g')
+  call system('clip.exe', text)
+  return
+endfunction
+
+
 function! s:write_clipboard_cygwin(text)
   call writefile(split(a:text, "\x0A", 1), '/dev/clipboard', 'b')
   return
@@ -235,6 +269,12 @@ endfunction
 
 function! s:write_clipboard_x(text)
   call system('xclip', a:text)
+  return
+endfunction
+
+
+function! s:write_clipboard_lemonade(text)
+  call system('lemonade copy', a:text)
   return
 endfunction
 
@@ -250,7 +290,7 @@ endfunction
 
 function! s:write_pastebuffer(text)  "{{{2
   let lines = split(a:text, '\n', !0)
-  return s:write_pastebuffer_{s:TERMINAL_MULTIPLEXER_TYPE}(lines)
+  return s:write_pastebuffer_{g:fakeclip_terminal_multiplexer_type}(lines)
 endfunction
 
 
@@ -326,11 +366,11 @@ function! s:select_last_motion(motion_type)  "{{{2
   let orig_selection = &selection
   let &selection = 'inclusive'
 
-  if a:motion_type == 'char'
+  if a:motion_type ==# 'char'
     normal! `[v`]
-  elseif a:motion_type == 'line'
+  elseif a:motion_type ==# 'line'
     normal! '[V']
-  elseif a:motion_type == 'block'
+  elseif a:motion_type ==# 'block'
     execute "normal! `[\<C-v>`]"
   else  " invoked from visual mode
     normal! gv

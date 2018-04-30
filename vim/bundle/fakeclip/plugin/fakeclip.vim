@@ -1,7 +1,7 @@
-" fakeclip - pseude clipboard register for non-GUI version of Vim
-" Version: 0.2.9
-" Copyright (C) 2007-2010 kana <http://whileimautomaton.net/>
-" License: So-called MIT/X license  {{{
+" fakeclip - Provide pseudo "clipboard" registers
+" Version: 0.3.0
+" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
 "     "Software"), to deal in the Software without restriction, including
@@ -173,7 +173,7 @@ command! -bang -bar -nargs=0 FakeclipDefaultKeyMappings
 function! s:cmd_FakeclipDefaultKeyMappings(banged_p)
   let modifier = a:banged_p ? '' : '<unique>'
   " Clipboard
-  if !has('clipboard')
+  if !has('clipboard') || get(g:, 'fakeclip_provide_clipboard_key_mappings', 0)
     for _ in ['+', '*']
       execute 'silent! nmap '.modifier.' "'._.'y  <Plug>(fakeclip-y)'
       execute 'silent! nmap '.modifier.' "'._.'Y  <Plug>(fakeclip-Y)'
