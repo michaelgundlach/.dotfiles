@@ -178,7 +178,11 @@ call pathogen#infect('~/.vim/bundle')
 " ************ TaskList ****************
 " Leader t opens TaskList. Mnemonic: t for "TODO"
 " '<CR>' jumps to highlighted TODO; 'q' quits
-nnoremap <silent> <Leader>t <Plug>TaskList
+" Uncommenting the below actually *breaks* tasklist, I think because 
+" TaskList includes the map command inside tasklist.vim itself.  I'm
+" keeping the below line here just so we remember than tasklist exists
+" and is useful!
+" nnoremap <silent> <Leader>t <Plug>TaskList
 
 " ************ NERDTree ****************
 " Leader f opens NERDTree. Mnemonic: f for "Files"
