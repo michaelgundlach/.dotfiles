@@ -93,11 +93,6 @@ inoremap <c-l> <esc><c-l>:syntax sync fromstart<CR>a
 " If you type :W<cr>, save anyway.
 command! W w
 
-" If you type q: you really meant to type :q .
-" q: originally opens a command history window, which you can get to by typing
-" :<Ctrl-F> instead.
-map q: :q
-
 " ctrl+w ctrl+w in insert mode should do the same thing as in normal mode
 " (change windows)
 imap <C-w><C-w> <esc><C-w><C-w>
