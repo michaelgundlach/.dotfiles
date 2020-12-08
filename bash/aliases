@@ -1,13 +1,31 @@
 # alias grep='grep --color'                     # show differences in colour
 
-alias ls='ls -hF --color=tty'                 # classify files in colour
+if [ "$(uname)" == Darwin ]; then
+  alias ls='ls -hFG'                            # classify files in colour
+else
+  alias ls='ls -hF --color=tty'                 # classify files in colour
+fi
 alias h=history
 alias vi=vim
 alias rm='rm -i'
 alias :w='echo "You'"'"'re not in vi, silly."'
+# mix has a bug making it unhappy in cygwin, but it starts fine in cmd.exe
+alias mix='cmd /c mix'
+# phoenix doesn't die, it freezes the console until you kill erlang!
+alias kp='taskkill /F /pid $(ps -W | grep "erl.exe" | tr -s " " | cut -d " " -f 2)'
+# ... so we'll want to start a term and type 'kpe' to quickly kill it.
+alias kpe="kp && exit"
 
-function svndiff()
-{
-  svn diff "$@" | colordiff | less -R && svn diff "$@"
-}
-
+# Git aliases
+alias g="git"
+alias gs="g s"
+alias gd="g d"
+alias gp="g p"
+alias gpoh="g poh"
+alias gb="g b"
+alias gc="g c"
+alias gcam="g cam"
+alias gco="g co"
+alias ga="g a"
+alias gl="g l"
+alias ggl="g gl"
