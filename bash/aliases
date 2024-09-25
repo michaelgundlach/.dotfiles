@@ -9,8 +9,6 @@ alias h=history
 alias vi=vim
 alias rm='rm -i'
 alias :w='echo "You'"'"'re not in vi, silly."'
-# mix has a bug making it unhappy in cygwin, but it starts fine in cmd.exe
-alias mix='cmd /c mix'
 # phoenix doesn't die, it freezes the console until you kill erlang!
 alias kp='taskkill /F /pid $(ps -W | grep "erl.exe" | tr -s " " | cut -d " " -f 2)'
 # ... so we'll want to start a term and type 'kpe' to quickly kill it.
@@ -29,3 +27,5 @@ alias gco="g co"
 alias ga="g a"
 alias gl="g l"
 alias ggl="g gl"
+
+alias sr='ssh gundlach@sorryrobot.com'

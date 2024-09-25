@@ -26,7 +26,11 @@
   co = checkout
   a = add
   l = log
-  ; Same as gl
-  graphlog = log --graph --decorate --pretty='format:%C(yellow) %h%C(blue)%d%Creset %s%C(yellow) %m %an %m%C(red) (%cr)%Creset'
+  ; Same as gl, includes branches
+  graphlog = log --branches --graph --decorate --pretty='format:%C(yellow) %h%C(blue)%d%Creset %s%C(yellow) %m %an %m%C(red) (%cr)%Creset'
   ; Same as graphlog
-  gl = log --graph --decorate --pretty='format:%C(yellow) %h%C(blue)%d%Creset %s%C(yellow) %m %an %m%C(red) (%cr)%Creset'
+  gl = log --branches --graph --decorate --pretty='format:%C(yellow) %h%C(blue)%d%Creset %s%C(yellow) %m %an %m%C(red) (%cr)%Creset'
+[core]
+	whitespace = -blank-at-eol,-blank-at-eof
+[pager]
+  diff = less +/^diff.*$

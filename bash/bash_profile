@@ -12,7 +12,6 @@ export EDITOR="vim"
 # especially in git (-FRSX)
 export LESS='-FRSX -z-4'
 
-
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
