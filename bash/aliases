@@ -6,18 +6,36 @@ else
   alias ls='ls -hF --color=tty'                 # classify files in colour
 fi
 alias h=history
-alias vi=vim
 alias rm='rm -i'
 alias :w='echo "You'"'"'re not in vi, silly."'
-# phoenix doesn't die, it freezes the console until you kill erlang!
-alias kp='taskkill /F /pid $(ps -W | grep "erl.exe" | tr -s " " | cut -d " " -f 2)'
-# ... so we'll want to start a term and type 'kpe' to quickly kill it.
-alias kpe="kp && exit"
+
+# Godot work
+alias code='cd ~/code/godot/Space\ Duel'
+alias userdata='cd ~/Library/Application\ Support/Godot/app_userdata/Space\ Duel\ Practice'
+function jsfxr() {
+  echo "This is used for generating video game sound effects."
+  echo
+  echo "(If this fails, try running 'npm i jsfxr' to install the package.  But that will put spam in your"
+  echo "current directory, so remove the spam after running this.  At that point the package will be"
+  echo "installed, though I don't know where because I'm npm-ignorant.)"
+  echo
+  echo "Use https://sfxr.me to get the effect you want."
+  echo "Serialize it, copy the JSON output."
+  echo "Then paste it here, press Enter to get a newline, then press Ctrl-D. (I'm running 'npx sfxr-to-wav'.)"
+  echo "That will silently create sfxr-sound.wav in the current dir."
+  echo
+  echo "Don't forget to remove the spam in the current directory from installing jsfxr."
+  echo "Go ahead and paste your input now, unless you see an error message right here."
+  echo
+  npx sfxr-to-wav
+}
 
 # Git aliases
 alias g="git"
 alias gs="g s"
 alias gd="g d"
+alias gdc="g d --cached"
+alias qgd="g d"
 alias gp="g p"
 alias gpoh="g poh"
 alias gb="g b"
@@ -27,5 +45,16 @@ alias gco="g co"
 alias ga="g a"
 alias gl="g l"
 alias ggl="g gl"
+function gmergeinto() {
+  cur_branch=$(git branch --show-current)
+  target_branch="$1"
+  if ! git merge-base --is-ancestor "$target_branch" "$cur_branch" || [ "$cur_branch" = "$target_branch" ] || [ "$cur_branch" = "" ]; then
+     echo "Can't merge from branch '$cur_branch' into branch '$target_branch'"
+     return 1
+  fi
+  grep_ref=$(git rev-parse "$target_branch" | cut -b 1-6)
+  git checkout $target_branch && git merge --no-ff $cur_branch && git branch -d $cur_branch && ggl -100 --color=always | grep -B 100 $grep_ref
+  return $?
+}
 
 alias sr='ssh gundlach@sorryrobot.com'
